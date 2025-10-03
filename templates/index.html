@@ -21,30 +21,30 @@
     <!-- 新增：作者头部 -->
     <header>
         <img id="avatar" src="/static/avatar.jpg" alt="作者头像">
-        <span class="author-name">翛川川</span>  # 修改这里为你的真实名字，例如：张三
+        <span class="author-name">翛川川</span>  
     </header>
     <div id="embed-panel" class="panel">
-        <h2>1. 嵌入水印</h2>
+        <h2>1. 嵌入水印（加密）</h2>
         <div>
             <span class="label">密码*:</span>
             <input type="password" id="pwd-embed" class="input" placeholder="输入密码">
         </div>
         <div>
-            <span class="label">水印:</span>
-            <input type="text" id="wm-embed" class="input" value="This is watermark">
+            <span class="label">密文:</span>
+            <input type="text" id="wm-embed" class="input" value="这里输入悄悄话">
         </div>
         <div>
-            <span class="label">输入文本:</span>
+            <span class="label">输入原文:</span>
             <textarea id="input-embed" class="textarea" placeholder="输入原始文本"></textarea>
         </div>
-        <button onclick="embedWatermark()">Embed -></button>
+        <button onclick="embedWatermark()">加密 -></button>
         <div>
-            <span class="label">输出文本:</span>
+            <span class="label">输出明文:</span>
             <textarea id="output-embed" class="textarea" readonly></textarea>
         </div>
     </div>
     <div id="extract-panel" class="panel">
-        <h2>2. 提取水印</h2>
+        <h2>2. 提取水印（解密）</h2>
         <div>
             <span class="label">密码:</span>
             <input type="password" id="pwd-extract" class="input" placeholder="输入密码">
@@ -53,7 +53,7 @@
             <span class="label">输入文本:</span>
             <textarea id="input-extract" class="textarea" placeholder="输入水印文本"></textarea>
         </div>
-        <button onclick="extractWatermark()">Extract -></button>
+        <button onclick="extractWatermark()">解密 -></button>
         <div>
             <span class="label">提取结果:</span>
             <input type="text" id="output-extract" class="input" readonly style="width: 100%;">
