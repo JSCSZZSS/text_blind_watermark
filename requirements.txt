@@ -1,2 +1,0 @@
-flask
-text_blind_watermark
