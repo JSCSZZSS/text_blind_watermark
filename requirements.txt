@@ -1,2 +1,2 @@
-setuptools
-crypt_tool>=0.1.3
+flask
+text_blind_watermark
