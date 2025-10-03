@@ -4,21 +4,125 @@
     <meta charset="UTF-8">
     <title>文本盲水印工具</title>
     <style>
-        body { font-family: Arial, sans-serif; margin: 20px; }
-        /* 新增：头部样式 - 居中对齐，头像圆形 */
-        header { text-align: center; margin-bottom: 20px; padding: 10px; border-bottom: 1px solid #ccc; }
-        #avatar { width: 60px; height: 60px; border-radius: 50%; margin-right: 10px; vertical-align: middle; }
-        .author-name { font-size: 18px; font-weight: bold; color: #333; vertical-align: middle; }
-        .panel { border: 1px solid #ccc; padding: 10px; margin: 10px 0; }
-        .label { display: inline-block; width: 80px; font-weight: bold; }
-        .input { width: 300px; margin: 5px; }
-        .textarea { width: 100%; height: 150px; }
-        button { background: lightblue; padding: 10px; margin: 10px; }
-        #output-embed, #output-extract { border: 1px solid #ddd; }
+        body { 
+            font-family: Arial, sans-serif; 
+            margin: 20px; 
+            background-color: #f9f9f9;
+        }
+        /* 头部样式 - 圆角底部 */
+        header { 
+            text-align: center; 
+            margin-bottom: 20px; 
+            padding: 15px; 
+            border-bottom: 1px solid #ddd; 
+            border-radius: 0 0 12px 12px;
+            background: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        #avatar { 
+            width: 60px; 
+            height: 60px; 
+            border-radius: 50%; 
+            margin-right: 10px; 
+            vertical-align: middle;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .author-name { 
+            font-size: 18px; 
+            font-weight: bold; 
+            color: #333; 
+            vertical-align: middle; 
+        }
+        .panel { 
+            border: 1px solid #ddd; 
+            padding: 15px; 
+            margin: 10px 0; 
+            border-radius: 12px;
+            background: white;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+        }
+        .label { 
+            display: inline-block; 
+            width: 80px; 
+            font-weight: bold; 
+            color: #555;
+        }
+        .input { 
+            width: 300px; 
+            margin: 5px; 
+            border-radius: 8px; 
+            border: 1px solid #ccc; 
+            padding: 8px; 
+            font-size: 14px;
+        }
+        .input:focus {
+            outline: none;
+            border-color: lightblue;
+            box-shadow: 0 0 0 2px rgba(173, 216, 230, 0.2);
+        }
+        .textarea { 
+            width: 100%; 
+            height: 150px; 
+            border-radius: 8px; 
+            border: 1px solid #ccc; 
+            padding: 10px; 
+            font-size: 14px;
+            resize: vertical;
+        }
+        .textarea:focus {
+            outline: none;
+            border-color: lightblue;
+            box-shadow: 0 0 0 2px rgba(173, 216, 230, 0.2);
+        }
+        /* 通用按钮样式 */
+        button { 
+            padding: 10px 20px; 
+            margin: 10px; 
+            border-radius: 20px; 
+            border: none; 
+            cursor: pointer; 
+            font-weight: bold;
+            color: white;
+            font-size: 18px;
+            font-family: YouYuan,KaiTi, 'STKaiti', serif; /* 新增：按钮字体改为楷体KaiTi, 'STKaiti', serif，确保兼容性。 */
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        /* 加密按钮：绿色调 */
+        #embed-btn { 
+            background: linear-gradient(135deg, #1e3a8a, #1e40af); 
+        }
+        #embed-btn:hover { 
+            background: linear-gradient(135deg, #45a049, #388E3C); 
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        /* 解密按钮：橙色调 */
+        #extract-btn { 
+            background: linear-gradient(135deg, #1e3a8a, #1e40af); 
+        }
+        #extract-btn:hover { 
+            background: linear-gradient(135deg, #F57C00, #E65100); 
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        #output-embed, #output-extract { 
+            border: 1px solid #ddd; 
+            border-radius: 8px; 
+            padding: 10px; 
+            background: #f8f9fa;
+        }
+        #output-extract { 
+            width: 100%; 
+            box-sizing: border-box;
+        }
+        h2 {
+            color: #333;
+            margin-top: 0;
+        }
     </style>
 </head>
 <body>
-    <!-- 新增：作者头部 -->
+    <!-- 作者头部 -->
     <header>
         <img id="avatar" src="/static/avatar.jpg" alt="作者头像">
         <span class="author-name">翛川川</span>  
@@ -37,7 +141,7 @@
             <span class="label">输入原文:</span>
             <textarea id="input-embed" class="textarea" placeholder="输入原始文本"></textarea>
         </div>
-        <button onclick="embedWatermark()">加密 -></button>
+        <button id="embed-btn" onclick="embedWatermark()">加密 -></button>
         <div>
             <span class="label">输出明文:</span>
             <textarea id="output-embed" class="textarea" readonly></textarea>
@@ -53,7 +157,7 @@
             <span class="label">输入文本:</span>
             <textarea id="input-extract" class="textarea" placeholder="输入水印文本"></textarea>
         </div>
-        <button onclick="extractWatermark()">解密 -></button>
+        <button id="extract-btn" onclick="extractWatermark()">解密 -></button>
         <div>
             <span class="label">提取结果:</span>
             <input type="text" id="output-extract" class="input" readonly style="width: 100%;">
