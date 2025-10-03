@@ -5,6 +5,10 @@
     <title>文本盲水印工具</title>
     <style>
         body { font-family: Arial, sans-serif; margin: 20px; }
+        /* 新增：头部样式 - 居中对齐，头像圆形 */
+        header { text-align: center; margin-bottom: 20px; padding: 10px; border-bottom: 1px solid #ccc; }
+        #avatar { width: 60px; height: 60px; border-radius: 50%; margin-right: 10px; vertical-align: middle; }
+        .author-name { font-size: 18px; font-weight: bold; color: #333; vertical-align: middle; }
         .panel { border: 1px solid #ccc; padding: 10px; margin: 10px 0; }
         .label { display: inline-block; width: 80px; font-weight: bold; }
         .input { width: 300px; margin: 5px; }
@@ -13,6 +17,12 @@
         #output-embed, #output-extract { border: 1px solid #ddd; }
     </style>
 </head>
+<body>
+    <!-- 新增：作者头部 -->
+    <header>
+        <img id="avatar" src="/static/avatar.jpg" alt="作者头像">
+        <span class="author-name">翛川川</span>  # 修改这里为你的真实名字，例如：张三
+    </header>
     <div id="embed-panel" class="panel">
         <h2>1. 嵌入水印</h2>
         <div>
