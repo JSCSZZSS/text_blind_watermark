@@ -13,7 +13,7 @@ def embed_watermark():
     pwd = data.get('password', '')
     wm = data.get('watermark', '')
     text = data.get('input_text', '')
-    if 不 pwd  或者 不 text:
+    if not pwd or not text:
         return jsonify({'error': '密码或文本不能为空！'})
     try:
         twm = TextBlindWatermark(pwd=pwd.encode())
@@ -27,7 +27,7 @@ def extract_watermark():
     data = request.json
     pwd = data.get('password', '')
     text_with_wm = data.get('input_text', '')
-    if 不 pwd  或者 不 text_with_wm:
+    if not pwd or not text_with_wm:
         return jsonify({'error': '密码或水印文本不能为空！'})
     try:
         twm = TextBlindWatermark(pwd=pwd.encode())
@@ -37,5 +37,4 @@ def extract_watermark():
         return jsonify({'error': f'密码错误: {str(e)}'})
 
 if __name__ == '__main__':
-
     app.run(debug=True)
